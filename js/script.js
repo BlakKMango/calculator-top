@@ -3,6 +3,8 @@ const operators = document.querySelectorAll(".button-operator")
 const equalsButton = document.querySelector("#equals")
 const screen = document.querySelector(".calc-screen-inner")
 const calcButtons = document.querySelectorAll(".calc-button")
+const clearButton = document.querySelector("#clear")
+const clearEntryButton = document.querySelector("#ce")
 
 let history = {
     numHist: [],
@@ -25,6 +27,7 @@ const calcReset = {
     total: null,
     currentNum: [],
 }
+
 const historyReset = {
     numHist: [],
     opHist: [],
@@ -124,6 +127,16 @@ function calcCheck(){
     return
 }
 
+function clearAll(){
+    calc = structuredClone(calcReset)
+    display()
+}
+
+function clearCurrentNum(){
+    calc.currentNum = []
+    display()
+}
+
 //---DISPLAY---//
 function display() {
     if (calc.total != null && calc.operator === null) {
@@ -138,7 +151,6 @@ function display() {
         screen.textContent = "ERROR"
     }
 }
-
 
 //---EVENT LISTENERS---//
 
@@ -156,6 +168,11 @@ equalsButton.addEventListener("click", () => {
     screen.textContent = calc.total
     calc = structuredClone(calcReset)
 })
+
+clearButton.addEventListener("click", clearAll)
+
+clearEntryButton.addEventListener("click", clearCurrentNum)
+
 
 
 
