@@ -1,0 +1,68 @@
+@font-face {
+  font-family: 'calc-buttons';
+  src: url('../fonts/Orbitron-VariableFont_wght.woff2') format('woff2');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'calc-screen';
+  src: url('../fonts/DotGothic16-Regular.woff2') format('woff2');
+  font-display: swap;
+}
+
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.calc {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 700px;
+    width: 500px;
+    padding: 24px 32px;
+    border: 2px solid black;
+    border-radius: 25px;
+}
+
+.calc-screen {
+    display: flex;
+    height: 20%;
+    width: 100%;
+    padding: 24px;
+    border: 2px solid black;
+    border-radius: 25px;
+    font-family: "calc-screen";
+    font-size: 32px;
+}
+
+.calc-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: stretch;
+    gap: 10px;
+    min-height: 70%;
+    width: 100%;
+    padding: 8px;
+    border: 2px solid black;
+    border-radius: 25px;
+}
+
+.calc-button {
+    flex-shrink: 1;
+    flex-basis: auto;
+    width: 18%;
+    height: 18%;
+    padding: 0;
+    margin: 0;
+    border-radius: 50%;
+    font-family: "calc-buttons";
+    font-size: 24px;
+}
