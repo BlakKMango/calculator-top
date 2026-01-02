@@ -47,7 +47,7 @@ function operate(operator, a, b){
 }
 
 function saveInput(e){
-    let num = Number(e.target.textContent)
+    let num = e.target.textContent
     currentNum.push(num)
     return currentNum
 }
