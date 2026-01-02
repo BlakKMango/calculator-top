@@ -71,6 +71,7 @@ function operate(){
     return calc.total
 }
 
+//---STATE HANDLING ---//
 function saveInput(e){
     let num = e.target.textContent
     calc.currentNum.push(num)

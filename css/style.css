@@ -21,25 +21,34 @@ body {
 .calc {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
+    box-sizing: border-box;
     height: 700px;
     width: 500px;
-    padding: 24px 32px;
+    padding: 18px;
     border: 2px solid black;
     border-radius: 25px;
 }
 
 .calc-screen {
     display: flex;
+    box-sizing: border-box;
     height: 20%;
     width: 100%;
-    padding: 24px;
+    padding: 16px;
     border: 2px solid black;
     border-radius: 25px;
     font-family: "calc-screen";
     font-size: 32px;
 }
+
+.calc-screen-inner {
+  border: 2px solid black;
+  border-radius: inherit;
+  min-width: 100%;
+}
+
 
 .calc-buttons {
     display: flex;
@@ -47,6 +56,7 @@ body {
     justify-content: center;
     align-items: center;
     align-content: stretch;
+    box-sizing: border-box;
     gap: 10px;
     min-height: 70%;
     width: 100%;
