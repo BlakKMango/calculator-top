@@ -6,6 +6,7 @@ const calcButtons = document.querySelectorAll(".calc-button")
 const clearButton = document.querySelector("#clear")
 const clearEntryButton = document.querySelector("#ce")
 const deleteButton = document.querySelector("#del")
+const rndButton = document.querySelector("#rnd")
 
 let history = {
     numHist: [],
@@ -122,7 +123,7 @@ function calcCheck(){
         resetSingleValue(calc.numA, calc.numB, calc.operator)
         calc.numA = calc.total
         activeCalc = true
-    } else if (history.lastButtonClicked === "=") {
+    } else if (history.lastButtonClicked === "=" || history.lastButtonClicked === "RND") {
         calc.numA = history.totalsHist[history.totalsHist.length - 1]
     }
     return
@@ -136,6 +137,13 @@ function clearAll(){
 function clearCurrentNum(){
     calc.currentNum = []
     display()
+}
+
+function roundTotal(){
+    calc.total = Math.round(history.totalsHist[history.totalsHist.length - 1])
+    screen.textContent = calc.total
+    history.totalsHist.push(calc.total)
+    return
 }
 
 
@@ -177,3 +185,5 @@ clearButton.addEventListener("click", clearAll)
 clearEntryButton.addEventListener("click", clearCurrentNum)
 
 calcButtons.forEach(button => button.addEventListener("click", (e) => history.lastButtonClicked = e.target.textContent))
+
+rndButton.addEventListener("click", roundTotal)
