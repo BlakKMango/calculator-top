@@ -1,21 +1,14 @@
-const calcNumbers = document.querySelectorAll(".button-num")
-const operators = document.querySelectorAll(".button-operator")
-const equalsButton = document.querySelector("#equals")
 const screen = document.querySelector(".calc-screen-inner")
 const calcButtons = document.querySelectorAll(".calc-button")
-const clearButton = document.querySelector("#clear")
-const clearEntryButton = document.querySelector("#ce")
-const deleteButton = document.querySelector("#del")
-const rndButton = document.querySelector("#rnd")
-const decimalButton = document.querySelector("#deci")
 
+
+//===VARIABLES===//
 let history = {
     numHist: [],
     opHist: [],
     totalsHist: [],
     lastButtonClicked: null,
 }
-
 let calc = {
     numA: null,
     numB: null,
@@ -23,7 +16,6 @@ let calc = {
     total: null,
     currentNum: [],
 }
-
 const calcReset = {
     numA: null,
     numB: null,
@@ -31,7 +23,6 @@ const calcReset = {
     total: null,
     currentNum: [],
 }
-
 const historyReset = {
     numHist: [],
     opHist: [],
@@ -123,7 +114,6 @@ function calcCheck(){
         saveHistory()
         resetSingleValue(calc.numA, calc.numB, calc.operator)
         calc.numA = calc.total
-        activeCalc = true
     } else if (history.lastButtonClicked === "=" || history.lastButtonClicked === "RND") {
         calc.numA = history.totalsHist[history.totalsHist.length - 1]
     }
@@ -153,15 +143,62 @@ function checkForDecimals(){
     return numOfDecimals
 }
 
-function subtractOrMinus(e){
-    if (calc.currentNum.length < 1){
+function minusOrSubtract(e){
+    if (calc.currentNum.length === 0) {
         saveInput(e)
-    } else if (calc.numA != null && calc.currentNum.length < 1) {
-        saveInput(e)
+    } else {
+        saveNum()
+        calcCheck()
+        saveOperator(e)
     }
-    return
 }
 
+function handleButtonOnClick(e){
+    const value = e.target
+
+    switch (true) {
+
+        case value.id === "minus":
+            minusOrSubtract(e)
+            break;
+
+        case value.classList.contains("button-num"):
+            saveInput(e)
+            break;
+
+        case value.classList.contains("button-operator"):
+            saveNum()
+            calcCheck()
+            saveOperator(e)
+            break;
+
+        case value.id === "equals":
+            saveNum()
+            operate()
+            screen.textContent = calc.total
+            history.totalsHist.push(calc.total)
+            calc = structuredClone(calcReset)
+            break;
+
+        case value.id === "clear":
+            clearAll()
+            break;
+
+        case value.id === "ce":
+            clearCurrentNum()
+            break;
+
+        case value.id === "rnd":
+            roundTotal()
+            calcCheck()
+            break;
+        
+        case value.id === "deci":
+            saveInput(e)
+            checkForDecimals()
+            break;
+    }
+}
 
 //---DISPLAY---//
 function display() {
@@ -183,33 +220,7 @@ function display() {
 }
 
 //---EVENT LISTENERS---//
-
-calcNumbers.forEach(number => number.addEventListener("click", saveInput))
-
-operators.forEach(operator => operator.addEventListener("click", (e) => {
-    if (e.target.textContent = "-") {
-        subtractOrMinus(e)
-    } else {
-        saveNum()
-        calcCheck()
-        saveOperator(e)
-    }
-}))
-
-equalsButton.addEventListener("click", () => {
-    saveNum()
-    operate()
-    screen.textContent = calc.total
-    history.totalsHist.push(calc.total)
-    calc = structuredClone(calcReset)
-})
-
-clearButton.addEventListener("click", clearAll)
-
-clearEntryButton.addEventListener("click", clearCurrentNum)
-
-calcButtons.forEach(button => button.addEventListener("click", (e) => history.lastButtonClicked = e.target.textContent))
-
-rndButton.addEventListener("click", roundTotal)
-
-decimalButton.addEventListener("click", checkForDecimals)
+calcButtons.forEach(button => button.addEventListener("click", (e) => {
+    handleButtonOnClick(e)
+    history.lastButtonClicked = e.target.textContent
+    }))
