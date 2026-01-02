@@ -5,11 +5,13 @@ const screen = document.querySelector(".calc-screen-inner")
 const calcButtons = document.querySelectorAll(".calc-button")
 const clearButton = document.querySelector("#clear")
 const clearEntryButton = document.querySelector("#ce")
+const deleteButton = document.querySelector("#del")
 
 let history = {
     numHist: [],
     opHist: [],
     totalsHist: [],
+    lastButtonClicked: null,
 }
 
 let calc = {
@@ -33,9 +35,6 @@ const historyReset = {
     opHist: [],
     totalsHist: [],
 }
-
-let activeCalc = false
-let finalTotal = false
 
 //----CALCULTATIONS---//
 
@@ -123,6 +122,8 @@ function calcCheck(){
         resetSingleValue(calc.numA, calc.numB, calc.operator)
         calc.numA = calc.total
         activeCalc = true
+    } else if (history.lastButtonClicked === "=") {
+        calc.numA = history.totalsHist[history.totalsHist.length - 1]
     }
     return
 }
@@ -136,6 +137,7 @@ function clearCurrentNum(){
     calc.currentNum = []
     display()
 }
+
 
 //---DISPLAY---//
 function display() {
@@ -166,6 +168,7 @@ equalsButton.addEventListener("click", () => {
     saveNum()
     operate()
     screen.textContent = calc.total
+    history.totalsHist.push(calc.total)
     calc = structuredClone(calcReset)
 })
 
@@ -173,7 +176,4 @@ clearButton.addEventListener("click", clearAll)
 
 clearEntryButton.addEventListener("click", clearCurrentNum)
 
-
-
-
-
+calcButtons.forEach(button => button.addEventListener("click", (e) => history.lastButtonClicked = e.target.textContent))
