@@ -7,6 +7,7 @@ const clearButton = document.querySelector("#clear")
 const clearEntryButton = document.querySelector("#ce")
 const deleteButton = document.querySelector("#del")
 const rndButton = document.querySelector("#rnd")
+const decimalButton = document.querySelector("#deci")
 
 let history = {
     numHist: [],
@@ -146,10 +147,29 @@ function roundTotal(){
     return
 }
 
+function checkForDecimals(){
+    const decimals = calc.currentNum.filter(value => value === ".")
+    let numOfDecimals = decimals.length
+    return numOfDecimals
+}
+
+function subtractOrMinus(e){
+    if (calc.currentNum.length < 1){
+        saveInput(e)
+    } else if (calc.numA != null && calc.currentNum.length < 1) {
+        saveInput(e)
+    }
+    return
+}
+
 
 //---DISPLAY---//
 function display() {
-    if (calc.total != null && calc.operator === null) {
+    if (checkForDecimals() > 1) {
+        screen.textContent = "THAT'S TOO MANY DECIMALS..."
+        clearEntryButton.addAttribute()
+        return
+    } else if (calc.total != null && calc.operator === null) {
         screen.textContent = calc.total
     } else if (calc.total !=null && calc.operator != null){
         screen.textContent = calc.total + " " + calc.operator + " " + calc.currentNum.join("")
@@ -167,9 +187,13 @@ function display() {
 calcNumbers.forEach(number => number.addEventListener("click", saveInput))
 
 operators.forEach(operator => operator.addEventListener("click", (e) => {
-    saveNum()
-    calcCheck()
-    saveOperator(e)
+    if (e.target.textContent = "-") {
+        subtractOrMinus(e)
+    } else {
+        saveNum()
+        calcCheck()
+        saveOperator(e)
+    }
 }))
 
 equalsButton.addEventListener("click", () => {
@@ -187,3 +211,5 @@ clearEntryButton.addEventListener("click", clearCurrentNum)
 calcButtons.forEach(button => button.addEventListener("click", (e) => history.lastButtonClicked = e.target.textContent))
 
 rndButton.addEventListener("click", roundTotal)
+
+decimalButton.addEventListener("click", checkForDecimals)
