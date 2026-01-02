@@ -1,5 +1,6 @@
 const calcNumbers = document.querySelectorAll(".button-num")
 const operators = document.querySelectorAll(".button-operator")
+const equalsButton = document.querySelector("#equals")
 
 let total;
 let operator;
@@ -28,19 +29,19 @@ function divide(a, b){
     return total
 }
 
-function operate(operator, a, b){
+function operate(operator, numA, numB){
     switch (operator){
         case "+":
-            add(a, b)
+            add(numA, numB)
             break;
         case "-":
-            subtract(a, b)
+            subtract(numA, numB)
             break;
         case "x":
-            multiply(a, b)
+            multiply(numA, numB)
             break;
         case "&#247":
-            divide(a, b)
+            divide(numA, numB)
             break;
     }
     return total
@@ -72,6 +73,11 @@ operators.forEach(operator => operator.addEventListener("click", (e) => {
     saveNum();
     saveOperator(e)
 }))
+equalsButton.addEventListener("click", () => {
+    saveNum()
+    operate(operator, numA, numB)
+})
+
 
 
 
