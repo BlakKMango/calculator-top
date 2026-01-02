@@ -129,9 +129,9 @@ function display() {
     if (calc.total != null && calc.operator === null) {
         screen.textContent = calc.total
     } else if (calc.total !=null && calc.operator != null){
-        screen.textContent = calc.total + calc.operator + calc.currentNum.join("")
+        screen.textContent = calc.total + " " + calc.operator + " " + calc.currentNum.join("")
     } else if (calc.numA !== null && calc.operator !== null){
-        screen.textContent = calc.numA + calc.operator + calc.currentNum.join("")
+        screen.textContent = calc.numA + " " + calc.operator + " " + calc.currentNum.join("")
     } else if (calc.numA === null) {
         screen.textContent = calc.currentNum.join("")
     } else {
@@ -140,6 +140,7 @@ function display() {
 }
 
 
+//---EVENT LISTENERS---//
 
 calcNumbers.forEach(number => number.addEventListener("click", saveInput))
 
@@ -148,7 +149,6 @@ operators.forEach(operator => operator.addEventListener("click", (e) => {
     calcCheck()
     saveOperator(e)
 }))
-
 
 equalsButton.addEventListener("click", () => {
     saveNum()
