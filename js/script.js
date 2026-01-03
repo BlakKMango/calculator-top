@@ -224,7 +224,7 @@ function handleButtonOnClick(e){
         case e.key === "Backspace":
             if (!isNaN(history.lastButtonClicked)){
                 clearCurrentNum()
-            } else if (history.lastButtonClicked === ["+","-","x","*","÷","/"].includes(e.key))  {
+            } else if (["+","-","x","*","÷","/"].includes(history.lastButtonClicked))  {
                 clearOperator()
             }
             break;
