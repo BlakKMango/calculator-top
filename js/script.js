@@ -144,14 +144,21 @@ function checkForDecimals(){
     return numOfDecimals
 }
 
-function minusOrSubtract(e){
-    if (calc.currentNum.length === 0) {
-        saveInput(e)
-    } else {
-        saveNum()
-        calcCheck()
-        saveOperator(e)
+function minusOrSubtract(e) {
+    if (history.lastButtonClicked === "=") {
+        calcCheck();
+        saveOperator(e);
+        return;
     }
+
+    if (calc.currentNum.length === 0) {
+        saveInput(e);
+        return;
+    }
+
+    saveNum();
+    calcCheck();
+    saveOperator(e);
 }
 
 function handleButtonOnClick(e){
