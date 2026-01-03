@@ -42,24 +42,20 @@ body {
     border: 2px solid #552a3e;
     border-radius: 25px;
     font-family: "calc-screen";
-    font-size: 32px;
     background-color: #4f5544;
 }
 
 .calc-screen-inner {
     box-sizing: border-box;
-
     padding: 0 8px;
     border-radius: inherit;
     width: 100%;          
     text-align: right;
+    line-height: 90px;
+    font-size: 40px;
     white-space: nowrap;  
-    
-
     overflow-x: auto;      
     overflow-y: hidden;
-
-
     scrollbar-width: none;     
     -ms-overflow-style: none;   
 }
