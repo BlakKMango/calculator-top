@@ -164,9 +164,14 @@ function checkForDecimals(){
 }
 
 function minusOrSubtract(e) {
-    if (history.lastButtonClicked === "=" || "Enter") {
+    if (history.lastButtonClicked === "=" || history.lastButtonClicked === "Enter") {
         calcCheck();
         saveOperator(e);
+        return;
+    }
+
+    if (history.lastButtonClicked === "-") {
+        saveInput(e)
         return;
     }
 
@@ -174,7 +179,7 @@ function minusOrSubtract(e) {
         saveInput(e);
         return;
     }
-
+    
     saveNum();
     calcCheck();
     saveOperator(e);
