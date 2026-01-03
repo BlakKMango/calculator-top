@@ -258,6 +258,8 @@ function display() {
         screen.textContent = calc.numA + " " + calc.operator + " " + calc.currentNum.join("")
     } else if (calc.numA === null) {
         screen.textContent = calc.currentNum.join("")
+    } else if (calc.numA !== null && calc.operator === null) {
+        screen.textContent = calc.numA
     } else {
         screen.textContent = "ERROR"
     }
