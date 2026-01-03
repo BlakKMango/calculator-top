@@ -278,3 +278,5 @@ document.addEventListener("keydown", (e) => {
     }
     history.lastButtonClicked = e.key
 })
+
+
