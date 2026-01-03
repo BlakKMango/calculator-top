@@ -231,7 +231,7 @@ function handleButtonOnClick(e){
         case e.key === "Backspace":
             if (!isNaN(history.lastButtonClicked)){
                 clearCurrentNum()
-            } else if (history.lastButtonClicked === "+" || "-" || "*" || "/" || "÷" || "x") {
+            } else if (history.lastButtonClicked === ["+","-","x","*","÷","/"].includes(e.key))  {
                 clearOperator()
             }
             break;
@@ -280,7 +280,7 @@ calcButtons.forEach(button => button.addEventListener("click", (e) => {
 document.addEventListener("keydown", (e) => {
     if (!isNaN(e.key)) {
         handleButtonOnClick(e)
-    } else if (e.key === "x" || "÷" || "*" || "/" || "r" || "." || "Escape" || "Enter" || "Backspace" || "c"){
+    } else if (["x","*","/","÷",".","r","+","-","Escape","Enter","Backspace","c"].includes(e.key)) {
         handleButtonOnClick(e)
     }
     history.lastButtonClicked = e.key
