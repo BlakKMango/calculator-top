@@ -29,6 +29,8 @@ body {
     padding: 18px;
     border: 2px solid black;
     border-radius: 25px;
+    background-color: #e7bdd1
+
 }
 
 .calc-screen {
@@ -37,16 +39,20 @@ body {
     height: 20%;
     width: 100%;
     padding: 16px;
-    border: 2px solid black;
+    border: 2px solid #552a3e;
     border-radius: 25px;
     font-family: "calc-screen";
-    font-size: 32px;
+    font-size: 40px;
 }
 
 .calc-screen-inner {
-  border: 2px solid black;
+  box-sizing: border-box;
+  padding: 16px;
+  border: 2px solid #552a3e;
   border-radius: inherit;
   min-width: 100%;
+  background-color: #4f5544;
+  text-align: end;
 }
 
 
@@ -61,7 +67,7 @@ body {
     min-height: 70%;
     width: 100%;
     padding: 8px;
-    border: 2px solid black;
+    border: 2px solid #552a3e;
     border-radius: 25px;
 }
 
@@ -72,7 +78,22 @@ body {
     height: 18%;
     padding: 0;
     margin: 0;
-    border-radius: 50%;
+    border-radius: 25%;
+    border: 1px solid #552a3e;
     font-family: "calc-buttons";
     font-size: 24px;
+    color: #b4637a;
+}
+
+.button-func {
+  background-color: #e16ea4;
+
+}
+
+.button-operator, #deci {
+  background-color: #df8ab6;
+}
+
+.button-num {
+  background-color: #e7c2d4;
 }
