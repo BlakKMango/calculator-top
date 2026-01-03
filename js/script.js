@@ -64,6 +64,7 @@ function operate(){
             multiply(calc.numA, calc.numB)
             break;
         case "÷":
+        case "/":
             divide(calc.numA, calc.numB)
             break;
     }
@@ -73,14 +74,27 @@ function operate(){
 
 //---STATE HANDLING ---//
 function saveInput(e){
-    let num = e.target.textContent
+    let num;
+    if (e.key) {
+        num = e.key
+    } else {
+        num = e.target.textContent
+    }
     calc.currentNum.push(num)
     display()
     return calc.currentNum
 }
 
 function saveOperator(e){
-    calc.operator = e.target.textContent
+    if (e.key){
+        if (e.key === "+" || "-" || "*" || "÷" || "/") {
+            calc.operator = e.key
+        } else if (e.key === "x") {
+            calc.operator = "*"
+        }
+    } else {
+        calc.operator = e.target.textContent
+    }
     display()
     return calc.operator
 }
@@ -115,7 +129,7 @@ function calcCheck(){
         saveHistory()
         resetSingleValue(calc.numA, calc.numB, calc.operator)
         calc.numA = calc.total
-    } else if (history.lastButtonClicked === "=" || history.lastButtonClicked === "RND") {
+    } else if (history.lastButtonClicked === "=" || history.lastButtonClicked === "Enter" || history.lastButtonClicked === "RND") {
         calc.numA = history.totalsHist[history.totalsHist.length - 1]
     }
     return
@@ -128,6 +142,11 @@ function clearAll(){
 
 function clearCurrentNum(){
     calc.currentNum = []
+    display()
+}
+
+function clearOperator(){
+    calc.operator = null
     display()
 }
 
@@ -167,20 +186,29 @@ function handleButtonOnClick(e){
     switch (true) {
 
         case value.id === "minus":
+        case e.key === "-":
             minusOrSubtract(e)
             break;
 
         case value.classList.contains("button-num"):
+        case !isNaN(e.key):
             saveInput(e)
             break;
 
         case value.classList.contains("button-operator"):
+        case e.key === "+":
+        case e.key === "*":
+        case e.key === "/":
+        case e.key === "x":
+        case e.key === "÷":
             saveNum()
             calcCheck()
             saveOperator(e)
             break;
 
         case value.id === "equals":
+        case e.key === "=":
+        case e.key === "Enter":
             saveNum()
             operate()
             screen.textContent = calc.total
@@ -189,19 +217,28 @@ function handleButtonOnClick(e){
             break;
 
         case value.id === "clear":
+        case e.key === "Escape":
+        case e.key === "c":
             clearAll()
             break;
 
         case value.id === "ce":
-            clearCurrentNum()
+        case e.key === "Backspace":
+            if (!isNaN(history.lastButtonClicked)){
+                clearCurrentNum()
+            } else if (history.lastButtonClicked === "+" || "-" || "*" || "/" || "÷" || "x") {
+                clearOperator()
+            }
             break;
 
         case value.id === "rnd":
+        case e.key === "r":
             roundTotal()
             calcCheck()
             break;
         
         case value.id === "deci":
+        case e.key === ".":
             saveInput(e)
             checkForDecimals()
             break;
@@ -213,7 +250,6 @@ function display() {
     if (checkForDecimals() > 1) {
         screen.textContent = "TOO MANY DECIMALS..."
         clearEntryButton.addAttribute()
-        return
     } else if (calc.total != null && calc.operator === null) {
         screen.textContent = calc.total
     } else if (calc.total !=null && calc.operator != null){
@@ -233,3 +269,12 @@ calcButtons.forEach(button => button.addEventListener("click", (e) => {
     handleButtonOnClick(e)
     history.lastButtonClicked = e.target.textContent
     }))
+
+document.addEventListener("keydown", (e) => {
+    if (!isNaN(e.key)) {
+        handleButtonOnClick(e)
+    } else if (e.key === "x" || "÷" || "*" || "/" || "r" || "." || "Escape" || "Enter" || "Backspace" || "c"){
+        handleButtonOnClick(e)
+    }
+    history.lastButtonClicked = e.key
+})
