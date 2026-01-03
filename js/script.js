@@ -87,10 +87,10 @@ function saveInput(e){
 
 function saveOperator(e){
     if (e.key){
-        if (e.key === "+" || "-" || "*" || "÷" || "/") {
+        if (["+","-","x","÷","/"].includes(e.key)) {
             calc.operator = e.key
-        } else if (e.key === "x") {
-            calc.operator = "*"
+        } else if (e.key === "*") {
+            calc.operator = "x"
         }
     } else {
         calc.operator = e.target.textContent
