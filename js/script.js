@@ -225,6 +225,7 @@ function display() {
     } else {
         screen.textContent = "ERROR"
     }
+    screen.scrollLeft = screen.scrollWidth;
 }
 
 //---EVENT LISTENERS---//

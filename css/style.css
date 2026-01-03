@@ -43,28 +43,30 @@ body {
     border-radius: 25px;
     font-family: "calc-screen";
     font-size: 40px;
-    white-space: nowrap;
-
-    /*Hide scroll bar on firefox*/
-    scrollbar-width: none;    
-    -ms-overflow-style: none;
-}
-
-.calc-screen::-webkit-scrollbar {
-  display: none;               /* Chrome/Safari */
+    background-color: #4f5544;
 }
 
 .calc-screen-inner {
-  box-sizing: border-box;
-  white-space: nowrap;
-  padding: 16px;
-  border: 2px solid #552a3e;
-  border-radius: inherit;
-  min-width: 100%;
-  background-color: #4f5544;
-  text-align: right;
+    box-sizing: border-box;
+
+    padding: 0 8px;
+    border-radius: inherit;
+    width: 100%;          
+    text-align: right;
+    white-space: nowrap;  
+    
+
+    overflow-x: auto;      
+    overflow-y: hidden;
+
+
+    scrollbar-width: none;     
+    -ms-overflow-style: none;   
 }
 
+.calc-screen-inner::-webkit-scrollbar {
+  display: none;   
+}
 
 .calc-buttons {
     display: flex;
