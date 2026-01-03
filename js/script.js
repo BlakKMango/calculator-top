@@ -114,20 +114,11 @@ function saveHistory() {
     history.opHist.push(calc.operator)
 }
 
-function resetSingleValue(...values){
-    values.forEach(value => () => {
-        if (value.isArray()) {
-            value = []
-        } else {
-            value = null
-        }}
-)}
 
 function calcCheck(){
     if (calc.numA !== null && calc.numB !== null && calc.operator !== null) {
         operate()
         saveHistory()
-        resetSingleValue(calc.numA, calc.numB, calc.operator)
         calc.numA = calc.total
     } else if (history.lastButtonClicked === "=" || history.lastButtonClicked === "Enter" || history.lastButtonClicked === "RND") {
         calc.numA = history.totalsHist[history.totalsHist.length - 1]
@@ -157,11 +148,6 @@ function roundTotal(){
     return
 }
 
-function checkForDecimals(){
-    const decimals = calc.currentNum.filter(value => value === ".")
-    let numOfDecimals = decimals.length
-    return numOfDecimals
-}
 
 function minusOrSubtract(e) {
     if (history.lastButtonClicked === "=" || history.lastButtonClicked === "Enter") {
@@ -244,18 +230,16 @@ function handleButtonOnClick(e){
         
         case value.id === "deci":
         case e.key === ".":
-            saveInput(e)
-            checkForDecimals()
+            if (!calc.currentNum.includes(".")) {
+                saveInput(e);
+            }
             break;
     }
 }
 
 //---DISPLAY---//
 function display() {
-    if (checkForDecimals() > 1) {
-        screen.textContent = "TOO MANY DECIMALS..."
-        clearEntryButton.addAttribute()
-    } else if (calc.total != null && calc.operator === null) {
+    if (calc.total != null && calc.operator === null) {
         screen.textContent = calc.total
     } else if (calc.total !=null && calc.operator != null){
         screen.textContent = calc.total + " " + calc.operator + " " + calc.currentNum.join("")
