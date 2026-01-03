@@ -211,7 +211,7 @@ function handleButtonOnClick(e){
 //---DISPLAY---//
 function display() {
     if (checkForDecimals() > 1) {
-        screen.textContent = "THAT'S TOO MANY DECIMALS..."
+        screen.textContent = "TOO MANY DECIMALS..."
         clearEntryButton.addAttribute()
         return
     } else if (calc.total != null && calc.operator === null) {
