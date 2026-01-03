@@ -180,6 +180,13 @@ function handleButtonOnClick(e){
         case e.key === "-":
             minusOrSubtract(e)
             break;
+        
+        case value.id === "deci":
+        case e.key === ".":
+            if (!calc.currentNum.includes(".")) {
+                saveInput(e);
+            }
+            break;
 
         case value.classList.contains("button-num"):
         case !isNaN(e.key):
@@ -226,13 +233,6 @@ function handleButtonOnClick(e){
         case e.key === "r":
             roundTotal()
             calcCheck()
-            break;
-        
-        case value.id === "deci":
-        case e.key === ".":
-            if (!calc.currentNum.includes(".")) {
-                saveInput(e);
-            }
             break;
     }
 }
